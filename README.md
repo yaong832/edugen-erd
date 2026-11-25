@@ -1,6 +1,17 @@
-# erD ER 다이어그램
+# EduGen ER 다이어그램
 
-Mermaid로 작성한 스키마 문서입니다. 저장소 루트의 `README.md`로 GitHub 메인 화면에 표시되며, Mermaid 블록은 GitHub에서 렌더됩니다.
+**EduGen**(AI 수업자료 생성 플랫폼) 팀 프로젝트의 데이터베이스 설계도입니다. Mermaid로 그려서 GitHub에서 바로 그림으로 보입니다.
+
+| 항목 | 내용 |
+| --- | --- |
+| 프로젝트 | 교사가 주제와 참고자료(PDF)를 넣고 AI와 대화하며 수업 뼈대를 잡으면, PPT·퀴즈·요약노트·활동지를 만들어 학습자에게 공유하는 서비스 |
+| 팀 | 핫소스팀 4인 (2026.04 융합 프로젝트로 시작) |
+| 수상 | 2026 안성시 대학생 창업아이템 경진대회 우수상 · 제10회 벤처창업아이템 경진대회 장려상 |
+| 이 그림 | **2026년 봄 설계 단계 ERD (v2)**. 테이블 22개 |
+| 코드 | 비공개. 팀 원본 저장소에서 함께 개발했고, 2026년 10월부터 후속 저장소(edugen-next)에서 재구축·통합(PR 101건) |
+| 포트폴리오 | [김도겸의 포트폴리오](https://iced-tarsier-455.notion.site/350af40f5e6680d19f93f1653925a3b8) |
+
+설계안이라 실제 구현과 다른 곳이 있습니다. 무엇이 바뀌었는지는 아래 [설계안과 실제 구현](#설계안과-실제-구현)에 정리했습니다.
 
 ## 전체 ER (상세)
 
@@ -462,58 +473,17 @@ erDiagram
 
 온라인에서만 보려면 [Mermaid Live Editor](https://mermaid.live)를 열고, README에서 **mermaid**로 시작하는 코드 블록 전체를 복사해 붙여 넣으면 됩니다.
 
-## GitHub에 올리기 (처음 하는 경우)
+## 설계안과 실제 구현
 
-### 1단계: GitHub에서 빈 저장소 만들기
+2026년 11월 기준으로 실제 서비스 DB와 비교한 결과입니다. 설계 22개 테이블 중 이름까지 같은 것은 6개이고, 실제 DB는 기능이 늘면서 45개가 되었습니다.
 
-1. [github.com](https://github.com)에 로그인합니다.
-2. 오른쪽 위 **+** → **New repository**를 누릅니다.
-3. **Repository name**에 영문 이름을 입력합니다 (예: `er-diagram`).
-4. **Add a README file**은 **체크하지 않습니다**. (로컬에 이미 `README.md`가 있으면, 원격에 README를 같이 만들면 첫 push 때 충돌이 나기 쉽습니다.)
-5. **Create repository**를 누릅니다.
-6. 다음 화면에서 **HTTPS** 주소를 복사해 둡니다.  
-   예: `https://github.com/내아이디/er-diagram.git`
-
-### 2단계: PC에 Git 설치
-
-1. [Git for Windows](https://git-scm.com/download/win)를 설치합니다.
-2. 설치 옵션에서 **“Git from the command line and also from 3rd-party software”**를 고르면 PowerShell·Cursor 터미널에서 `git`을 쓰기 쉽습니다.
-3. 설치 후 **터미널·Cursor를 모두 닫았다가 다시** 엽니다.
-
-### 3단계: 프로젝트 폴더에서 Git 초기화 후 업로드
-
-1. 터미널을 연 뒤 **`README.md`가 있는 폴더**로 이동합니다.
-
-   예 (경로는 본인 PC에 맞게 수정):
-
-   ```powershell
-   Set-Location "D:\프로젝트폴더\erD-main\erD-main"
-   ```
-
-2. 아래를 **위에서부터 순서대로** 실행합니다. 마지막 줄의 주소는 **2단계에서 복사한 본인 저장소 주소**로 바꿉니다.
-
-```bash
-git init
-git add README.md .gitignore preview gen_preview.py
-git commit -m "docs: ER 다이어그램 및 미리보기"
-git branch -M main
-git remote add origin https://github.com/<GitHub아이디>/<저장소이름>.git
-git push -u origin main
-```
-
-3. `git push` 할 때 GitHub **비밀번호**를 물으면, 보통 **비밀번호 대신 Personal Access Token**을 붙여 넣어야 합니다.  
-   GitHub 웹 → **Settings** → **Developer settings** → **Personal access tokens**에서 토큰을 만들고, 터미널 비밀번호 입력란에 그 토큰을 넣습니다.  
-   (또는 [GitHub CLI](https://cli.github.com/)로 `gh auth login` 한 뒤 push할 수도 있습니다.)
-
-4. 브라우저에서 `https://github.com/<GitHub아이디>/<저장소이름>` 으로 들어가면 `README.md`가 메인에 보이고, Mermaid ER도 GitHub가 렌더링합니다.
-
-### 자주 나는 일
-
-- **저장소 만들 때 README를 넣어버린 경우**  
-  첫 `push`가 거절될 수 있습니다. 처음이면 저장소를 지우고 **README 없이** 다시 만드는 것이 가장 단순합니다.
-- **`fatal: not a git repository`**  
-  `git init`을 안 했거나, `README.md`가 있는 폴더가 아닌 곳에서 명령을 실행한 경우입니다.
-
-### 이미 다른 Git 프로젝트에 합칠 때
-
-이 폴더의 파일을 그 프로젝트 안으로 복사한 뒤, 그 저장소에서 `git add` → `commit` → `push`하면 됩니다.
+| 설계안 | 실제 구현 |
+| --- | --- |
+| 프로젝트 하나(PROJECTS)에 교사용·학습자용을 함께 담음 | 교사가 만든 프로젝트만 두고, 학습자는 공유 링크로 자료를 받아 응시·복습 |
+| 퀴즈 문항·플래시카드를 각각 테이블로 (QUIZ_QUESTIONS, QUESTION_VERSIONS, FLASHCARDS) | 생성된 자료(CONTENTS) 안에 함께 저장하고, 응시 결과·복습 진도만 따로 기록 |
+| 사용자 프로필(USER_PROFILES)을 따로 | 사용자 테이블에 합침 |
+| 템플릿(TEMPLATES), 녹음 파일·받아쓰기(AUDIO_FILES) | 만들지 않음 |
+| 그림(ILLUSTRATIONS) | 슬라이드 사진 저장소로 바뀜 (출처·라이선스까지 기록) |
+| `REFERENCES` 테이블 | SQL 예약어라 이름을 바꿈 |
+| 기본 키 이름을 모두 `id` | 테이블마다 `user_id`, `project_id`처럼 이름을 붙임 |
+| (설계에 없음) | 소셜 로그인, 비밀번호 재설정, 알림, 크레딧 결제, 생성 작업 큐와 AI 사용 기록, 의견 보내기 등이 구현하면서 추가됨 |
